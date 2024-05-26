@@ -10,6 +10,7 @@ public class UserMapper {
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .role(user.getRole())
                 .createAt(user.getCreateAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();
@@ -21,6 +22,7 @@ public class UserMapper {
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .role(user.getRole())
                 .createAt(user.getCreateAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();
