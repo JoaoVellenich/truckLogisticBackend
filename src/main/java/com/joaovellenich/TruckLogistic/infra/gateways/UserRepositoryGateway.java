@@ -5,6 +5,9 @@ import com.joaovellenich.TruckLogistic.infra.persistence.entities.UserEntity;
 import com.joaovellenich.TruckLogistic.infra.persistence.mapper.UserMapper;
 import com.joaovellenich.TruckLogistic.infra.persistence.repositories.UserRepository;
 import com.joaovellenich.TruckLogistic.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Optional;
 
 public class UserRepositoryGateway implements UserGateway {
     private final UserRepository userRepository;
@@ -16,6 +19,11 @@ public class UserRepositoryGateway implements UserGateway {
     @Override
     public boolean hasUserWithEmail(String email) {
         return this.userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public UserDetails findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
     }
 
     @Override
