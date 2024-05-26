@@ -22,8 +22,8 @@ public class UserConfig {
     }
 
     @Bean
-    public LoginUserUseCase loginUserUseCase(TokenService tokenService, AuthenticationManager authenticationManager){
-        return new LoginUserUseCase(tokenService, authenticationManager);
+    public LoginUserUseCase loginUserUseCase(TokenService tokenService, AuthenticationManager authenticationManager, UserGateway userGateway){
+        return new LoginUserUseCase(tokenService, authenticationManager, userGateway);
     }
 
     @Bean
