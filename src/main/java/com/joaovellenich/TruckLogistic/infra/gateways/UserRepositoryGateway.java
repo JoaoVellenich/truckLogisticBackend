@@ -8,6 +8,7 @@ import com.joaovellenich.TruckLogistic.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserRepositoryGateway implements UserGateway {
     private final UserRepository userRepository;
@@ -31,5 +32,11 @@ public class UserRepositoryGateway implements UserGateway {
         UserEntity userToSave = this.userMapper.toEntity(user);
         UserEntity userSaved = this.userRepository.save(userToSave);
         return this.userMapper.toDomain(userSaved);
+    }
+
+    @Override
+    public User getUserById(UUID id) throws Exception {
+        var user = this.userRepository.findById(id).orElseThrow(Exception::new);
+        return this.userMapper.toDomain(user);
     }
 }
