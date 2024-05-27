@@ -28,9 +28,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity createUser(@RequestBody CreateUserRequestDTO user){
-        User userToCreate = this.createUserDTOMapper.toDomain(user);
         try{
-            User createdUser = this.createUserUseCase.execute(userToCreate);
+            User createdUser = this.createUserUseCase.execute(user);
             return ResponseEntity.ok().body(this.createUserDTOMapper.toResponse(createdUser));
         }catch (Exception error){
             return ResponseEntity.badRequest().body(error.getMessage());
