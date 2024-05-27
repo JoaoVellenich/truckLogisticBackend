@@ -36,6 +36,9 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
     private UserRole role;
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    private CompanyEntity company;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createAt;
