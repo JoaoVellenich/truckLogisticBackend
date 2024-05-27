@@ -1,5 +1,6 @@
 package com.joaovellenich.TruckLogistic.infra.security;
 
+import com.joaovellenich.TruckLogistic.infra.persistence.entities.UserEntity;
 import com.joaovellenich.TruckLogistic.infra.persistence.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,6 +28,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(token!= null){
             var email = this.tokenService.validateToken(token);
             UserDetails user = this.userRepository.findByEmail(email);
+
+            UserEntity userEntity = this.userRepository.findOneByEmail(email);
+
+            request.setAttribute("user_id", userEntity.getId());
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
