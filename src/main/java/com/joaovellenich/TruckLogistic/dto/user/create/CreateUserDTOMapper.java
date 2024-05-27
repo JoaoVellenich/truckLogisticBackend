@@ -13,6 +13,6 @@ public class CreateUserDTOMapper {
     }
 
     public CreateUserResponseDTO toResponse(User user){
-        return new CreateUserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getRole(), user.getCreateAt(), user.getUpdatedAt());
+        return new CreateUserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getRole(),user.getCompany() ,user.getCreateAt(), user.getUpdatedAt());
     }
 }
