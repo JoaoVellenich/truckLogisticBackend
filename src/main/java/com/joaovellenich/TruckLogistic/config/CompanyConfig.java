@@ -1,7 +1,10 @@
 package com.joaovellenich.TruckLogistic.config;
 
 import com.joaovellenich.TruckLogistic.application.gateways.CompanyGateway;
+import com.joaovellenich.TruckLogistic.application.gateways.UserGateway;
 import com.joaovellenich.TruckLogistic.application.useCase.company.CreateCompanyUseCase;
+import com.joaovellenich.TruckLogistic.application.useCase.company.ListUsersUseCase;
+import com.joaovellenich.TruckLogistic.dto.company.listUsers.ListUserDTOMapper;
 import com.joaovellenich.TruckLogistic.infra.controller.CompanyController;
 import com.joaovellenich.TruckLogistic.infra.gateways.CompanyRepositoryGateway;
 import com.joaovellenich.TruckLogistic.infra.persistence.mapper.CompanyMapper;
@@ -18,8 +21,12 @@ public class CompanyConfig {
         return new CreateCompanyUseCase(companyGateway);
     }
     @Bean
-    public CompanyController companyController(CreateCompanyUseCase createCompanyUseCase){
-        return new CompanyController(createCompanyUseCase);
+    public ListUsersUseCase listUsersUseCase(UserGateway userGateway){
+        return new ListUsersUseCase(userGateway);
+    }
+    @Bean
+    public CompanyController companyController(CreateCompanyUseCase createCompanyUseCase, ListUsersUseCase listUsersUseCase, ListUserDTOMapper listUserDTOMapper){
+        return new CompanyController(createCompanyUseCase, listUsersUseCase, listUserDTOMapper);
     }
     @Bean
     public CompanyGateway companyGateway(CompanyRepository companyRepository, CompanyMapper companyMapper){
@@ -28,5 +35,9 @@ public class CompanyConfig {
     @Bean
     public CompanyMapper companyMapper(){
         return new CompanyMapper();
+    }
+    @Bean
+    public ListUserDTOMapper listUserDTOMapper(){
+        return new ListUserDTOMapper();
     }
 }
