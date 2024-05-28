@@ -7,8 +7,10 @@ import com.joaovellenich.TruckLogistic.infra.persistence.repositories.UserReposi
 import com.joaovellenich.TruckLogistic.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class UserRepositoryGateway implements UserGateway {
     private final UserRepository userRepository;
@@ -38,5 +40,11 @@ public class UserRepositoryGateway implements UserGateway {
     public User getUserById(UUID id) throws Exception {
         var user = this.userRepository.findById(id).orElseThrow(Exception::new);
         return this.userMapper.toDomain(user);
+    }
+
+    @Override
+    public List<User> listUserFromCompany(UUID companyId) {
+        List<UserEntity> users = this.userRepository.findByCompanyId(companyId);
+        return users.stream().map(this.userMapper::toDomain).collect(Collectors.toList());
     }
 }
