@@ -12,6 +12,7 @@ import java.util.UUID;
 @Setter
 public class Trailer {
     private UUID id;
+    private Company company;
     private String plate;
     private String description;
     private List<Tire> tires;
