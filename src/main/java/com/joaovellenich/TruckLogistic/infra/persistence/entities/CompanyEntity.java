@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Entity(name = "company")
+
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity(name = "company")
 public class CompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
