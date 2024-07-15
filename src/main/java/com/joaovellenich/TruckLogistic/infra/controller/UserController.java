@@ -1,17 +1,18 @@
 package com.joaovellenich.TruckLogistic.infra.controller;
 
+import com.joaovellenich.TruckLogistic.application.gateways.CompanyGateway;
 import com.joaovellenich.TruckLogistic.application.useCase.user.CreateUserUseCase;
 import com.joaovellenich.TruckLogistic.application.useCase.user.LoginUserUseCase;
 import com.joaovellenich.TruckLogistic.dto.user.create.CreateUserDTOMapper;
 import com.joaovellenich.TruckLogistic.dto.user.create.CreateUserRequestDTO;
 import com.joaovellenich.TruckLogistic.dto.user.login.LoginUserRequestDTO;
 import com.joaovellenich.TruckLogistic.infra.security.TokenService;
+import com.joaovellenich.TruckLogistic.model.Company;
 import com.joaovellenich.TruckLogistic.model.User;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity createUser(@RequestBody CreateUserRequestDTO user){
         try{
             User createdUser = this.createUserUseCase.execute(user);
@@ -37,10 +39,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginUserRequestDTO user){
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity login(@RequestBody LoginUserRequestDTO user, HttpServletResponse response){
         try{
             var token = this.loginUserUseCase.execute(user);
-            return ResponseEntity.ok().body(token);
+            Cookie cookie = new Cookie("jwt", token);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(false);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 2);
+
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok().body("Welcome");
         }catch (Exception error){
             return ResponseEntity.badRequest().body(error.getMessage());
         }
