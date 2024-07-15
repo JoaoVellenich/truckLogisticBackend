@@ -9,6 +9,6 @@ public record CreateUserRequestDTO (
          String email,
          String password,
          UserRole role,
-         UUID companyId
+         String companyName
 ){
 }

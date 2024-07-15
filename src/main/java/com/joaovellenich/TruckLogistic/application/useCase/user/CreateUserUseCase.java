@@ -21,17 +21,15 @@ public class CreateUserUseCase {
     }
 
     public User execute(CreateUserRequestDTO user) throws Exception{
-        Company userCompany = this.companyGateway.findById(user.companyId());
-        if(userCompany == null){
-            throw new Exception("Company not found");
-        }
         boolean hasUser = this.userGateway.hasUserWithEmail(user.email());
         if(!hasUser){
+            Company company = this.companyGateway.saveCompany(Company.builder().name(user.companyName()).build());
+
             User newUser = User.builder()
                     .name(user.name())
                     .email(user.email())
                     .password(this.encoder.encode(user.password()))
-                    .company(userCompany)
+                    .company(company)
                     .role(user.role())
                     .build();
 
