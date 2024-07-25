@@ -7,6 +7,8 @@ import com.joaovellenich.TruckLogistic.infra.persistence.repositories.TruckRepos
 import com.joaovellenich.TruckLogistic.model.Truck;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TruckRepositoryGateway implements TruckGateway {
@@ -32,8 +34,17 @@ public class TruckRepositoryGateway implements TruckGateway {
     }
 
     @Override
-    public List<Truck> getAll() {
-        List<TruckEntity> entities = this.truckRepository.findAll();
+    public Truck getTruckById(UUID truckId) throws Exception {
+        Optional<TruckEntity> entity = this.truckRepository.findById(truckId);
+        if(entity.isEmpty()){
+            throw new Exception("Truck not found");
+        }
+        return this.truckMapper.toDomain(entity.get());
+    }
+
+    @Override
+    public List<Truck> getAll(UUID companyId) {
+        List<TruckEntity> entities = this.truckRepository.findAllByCompanyId(companyId);
         return entities.stream().map(this.truckMapper::toDomain).collect(Collectors.toList());
     }
 
