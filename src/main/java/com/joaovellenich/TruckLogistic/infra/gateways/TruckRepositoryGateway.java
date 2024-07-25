@@ -19,8 +19,8 @@ public class TruckRepositoryGateway implements TruckGateway {
         this.truckMapper = truckMapper;
     }
     @Override
-    public Truck findTruckByPlate(String plate) {
-        TruckEntity foundTruck = this.truckRepository.findByPlate(plate);
+    public Truck findTruckByPlateAndCompanyId(String plate, UUID companyId) {
+        TruckEntity foundTruck = this.truckRepository.findByPlateAndCompanyId(plate, companyId);
         if(foundTruck != null){
             return this.truckMapper.toDomain(foundTruck);
         }

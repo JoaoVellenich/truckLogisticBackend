@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TruckGateway {
-    Truck findTruckByPlate(String plate);
+    Truck findTruckByPlateAndCompanyId(String plate, UUID companyId);
     Truck saveTruck(Truck truck);
     Truck getTruckById(UUID truckId) throws Exception;
     List<Truck> getAll(UUID companyId);

@@ -40,9 +40,10 @@ public class TruckController {
     }
 
     @GetMapping("/{truckId}")
-    public ResponseEntity getTruckById(@PathVariable UUID truckId){
+    public ResponseEntity getTruckById(@PathVariable UUID truckId, HttpServletRequest request){
+        UUID userID = (UUID) request.getAttribute("user_id");
         try{
-            var truck = this.getTruckByIdUseCase.execute(truckId);
+            var truck = this.getTruckByIdUseCase.execute(truckId, userID);
             return ResponseEntity.ok().body(truck);
         }catch (Exception error){
             return ResponseEntity.badRequest().body(error.getMessage());

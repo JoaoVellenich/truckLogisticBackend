@@ -31,8 +31,8 @@ public class TruckConfig {
         return new GetTrucksInfoUseCase(truckGateway, userGateway);
     }
     @Bean
-    public GetTruckByIdUseCase getTruckByIdUseCase(TruckGateway truckGateway, TireGateway tireGateway){
-        return new GetTruckByIdUseCase(truckGateway, tireGateway);
+    public GetTruckByIdUseCase getTruckByIdUseCase(TruckGateway truckGateway, TireGateway tireGateway, UserGateway userGateway){
+        return new GetTruckByIdUseCase(truckGateway, tireGateway, userGateway);
     }
     @Bean
     public TruckGateway truckGateway(TruckRepository truckRepository, TruckMapper truckMapper){

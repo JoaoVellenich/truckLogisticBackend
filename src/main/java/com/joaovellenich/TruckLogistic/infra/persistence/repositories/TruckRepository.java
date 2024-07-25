@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TruckRepository extends JpaRepository<TruckEntity, UUID> {
-    TruckEntity findByPlate(String plate);
+    TruckEntity findByPlateAndCompanyId(String plate, UUID companyId);
     List<TruckEntity> findAllByCompanyId(UUID companyId);
 }
