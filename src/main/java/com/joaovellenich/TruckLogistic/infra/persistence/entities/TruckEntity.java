@@ -19,7 +19,7 @@ public class TruckEntity {
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String plate;
     private String description;
     @Column(nullable = false)

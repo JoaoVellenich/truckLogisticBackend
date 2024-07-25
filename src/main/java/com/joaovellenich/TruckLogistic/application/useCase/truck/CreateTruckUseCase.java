@@ -27,9 +27,11 @@ public class CreateTruckUseCase {
     public Truck execute(CreateTruckRequestDTO data, UUID userID) throws Exception{
         // Verify if already exists truck with this plate
         Truck truckFound = this.truckGateway.findTruckByPlate(data.plate());
-        if(truckFound == null){
-            User userData = this.userGateway.getUserById(userID);
-            Company truckCompany = userData.getCompany();
+
+        User userData = this.userGateway.getUserById(userID);
+        Company truckCompany = userData.getCompany();
+
+        if(truckFound == null || truckFound.getCompany().getId() != truckCompany.getId()){
             Truck truckToSave = Truck.builder()
                     .company(truckCompany)
                     .plate(data.plate())
