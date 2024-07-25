@@ -6,6 +6,9 @@ import com.joaovellenich.TruckLogistic.infra.persistence.mapper.TruckMapper;
 import com.joaovellenich.TruckLogistic.infra.persistence.repositories.TruckRepository;
 import com.joaovellenich.TruckLogistic.model.Truck;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TruckRepositoryGateway implements TruckGateway {
     private final TruckRepository truckRepository;
     private final TruckMapper truckMapper;
@@ -26,6 +29,12 @@ public class TruckRepositoryGateway implements TruckGateway {
     public Truck saveTruck(Truck truck) {
         TruckEntity entityToSave = this.truckMapper.toEntity(truck);
         return this.truckMapper.toDomain(this.truckRepository.save(entityToSave));
+    }
+
+    @Override
+    public List<Truck> getAll() {
+        List<TruckEntity> entities = this.truckRepository.findAll();
+        return entities.stream().map(this.truckMapper::toDomain).collect(Collectors.toList());
     }
 
 }

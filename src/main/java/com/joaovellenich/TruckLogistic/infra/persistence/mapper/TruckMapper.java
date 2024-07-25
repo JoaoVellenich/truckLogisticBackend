@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 
 public class TruckMapper {
     private final CompanyMapper companyMapper;
-    public TruckMapper(CompanyMapper companyMapper){
+    private  final TireMapper tireMapper;
+    public TruckMapper(CompanyMapper companyMapper, TireMapper tireMapper){
         this.companyMapper = companyMapper;
+        this.tireMapper = tireMapper;
     }
     public TruckEntity toEntity(Truck truck){
         return TruckEntity.builder()

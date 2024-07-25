@@ -11,7 +11,11 @@ import com.joaovellenich.TruckLogistic.model.Company;
 import com.joaovellenich.TruckLogistic.model.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -54,6 +58,17 @@ public class UserController {
             return ResponseEntity.ok().body("Welcome");
         }catch (Exception error){
             return ResponseEntity.badRequest().body(error.getMessage());
+        }
+    }
+
+    @GetMapping("/check")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity checkAuth(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            return ResponseEntity.ok().body("Authenticated");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not Authenticated");
         }
     }
 }

@@ -3,7 +3,6 @@ package com.joaovellenich.TruckLogistic.application.useCase.truck;
 import com.joaovellenich.TruckLogistic.application.gateways.TireGateway;
 import com.joaovellenich.TruckLogistic.application.gateways.TruckGateway;
 import com.joaovellenich.TruckLogistic.application.gateways.UserGateway;
-import com.joaovellenich.TruckLogistic.application.useCase.company.CreateCompanyUseCase;
 import com.joaovellenich.TruckLogistic.dto.truck.create.CreateTruckRequestDTO;
 import com.joaovellenich.TruckLogistic.model.Company;
 import com.joaovellenich.TruckLogistic.model.Tire;
