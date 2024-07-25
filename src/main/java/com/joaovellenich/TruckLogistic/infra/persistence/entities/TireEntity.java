@@ -1,15 +1,15 @@
 package com.joaovellenich.TruckLogistic.infra.persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "tires")
 public class TireEntity {
     @Id
