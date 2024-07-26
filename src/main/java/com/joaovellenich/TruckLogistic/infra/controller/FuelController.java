@@ -1,15 +1,14 @@
 package com.joaovellenich.TruckLogistic.infra.controller;
 
 import com.joaovellenich.TruckLogistic.application.useCase.fuel.CreateFuelUseCase;
+import com.joaovellenich.TruckLogistic.application.useCase.fuel.GetFuelPageUseCase;
 import com.joaovellenich.TruckLogistic.dto.fuel.create.CreateFuelRequestDTO;
 import com.joaovellenich.TruckLogistic.dto.fuel.create.CreateFuelResponseDTO;
+import com.joaovellenich.TruckLogistic.dto.fuel.getFuelPage.GetFuelPageRequestDTO;
 import com.joaovellenich.TruckLogistic.model.Fuel;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,9 +16,11 @@ import java.util.UUID;
 @RequestMapping("/api/v1/fuel")
 public class FuelController {
     private final CreateFuelUseCase createFuelUseCase;
+    private final GetFuelPageUseCase getFuelPageUseCase;
 
-    public FuelController(CreateFuelUseCase createFuelUseCase) {
+    public FuelController(CreateFuelUseCase createFuelUseCase, GetFuelPageUseCase getFuelPageUseCase) {
         this.createFuelUseCase = createFuelUseCase;
+        this.getFuelPageUseCase = getFuelPageUseCase;
     }
 
     @PostMapping("/")
@@ -40,6 +41,17 @@ public class FuelController {
                     .build();
 
             return ResponseEntity.ok().body(response);
+        }catch (Exception error){
+            return ResponseEntity.badRequest().body(error.getMessage());
+        }
+    }
+
+    @PostMapping("/getFuel")
+    private ResponseEntity getFuelPage(@RequestBody GetFuelPageRequestDTO data, HttpServletRequest request){
+        UUID userID = (UUID) request.getAttribute("user_id");
+        try{
+            var page = this.getFuelPageUseCase.execute(data, userID);
+            return ResponseEntity.ok().body(page);
         }catch (Exception error){
             return ResponseEntity.badRequest().body(error.getMessage());
         }
