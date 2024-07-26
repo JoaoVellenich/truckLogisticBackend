@@ -2,6 +2,7 @@ package com.joaovellenich.TruckLogistic.infra.controller;
 
 import com.joaovellenich.TruckLogistic.application.useCase.fuel.CreateFuelUseCase;
 import com.joaovellenich.TruckLogistic.dto.fuel.create.CreateFuelRequestDTO;
+import com.joaovellenich.TruckLogistic.dto.fuel.create.CreateFuelResponseDTO;
 import com.joaovellenich.TruckLogistic.model.Fuel;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,19 @@ public class FuelController {
         UUID userID = (UUID) request.getAttribute("user_id");
         try{
             Fuel fuel = this.createFuelUseCase.execute(data, userID);
-            return ResponseEntity.ok().body(fuel);
+            CreateFuelResponseDTO response = CreateFuelResponseDTO.builder()
+                    .fuelId(fuel.getId())
+                    .date(fuel.getDate())
+                    .km(fuel.getKm())
+                    .value(fuel.getValue())
+                    .trip(fuel.getTrip())
+                    .kmL(fuel.getKmL())
+                    .price(fuel.getPrice())
+                    .liters(fuel.getLiters())
+                    .location(fuel.getLocation())
+                    .build();
+
+            return ResponseEntity.ok().body(response);
         }catch (Exception error){
             return ResponseEntity.badRequest().body(error.getMessage());
         }
