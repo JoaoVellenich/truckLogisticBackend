@@ -48,4 +48,11 @@ public class TruckRepositoryGateway implements TruckGateway {
         return entities.stream().map(this.truckMapper::toDomain).collect(Collectors.toList());
     }
 
+    @Override
+    public Truck updateFuel(Truck truck) {
+        TruckEntity entity = this.truckMapper.toEntity(truck);
+        TruckEntity savedTruck = this.truckRepository.save(entity);
+        return this.truckMapper.toDomain(savedTruck);
+    }
+
 }

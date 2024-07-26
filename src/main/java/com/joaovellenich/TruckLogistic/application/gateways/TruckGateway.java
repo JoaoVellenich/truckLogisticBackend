@@ -10,4 +10,5 @@ public interface TruckGateway {
     Truck saveTruck(Truck truck);
     Truck getTruckById(UUID truckId) throws Exception;
     List<Truck> getAll(UUID companyId);
+    Truck updateFuel(Truck truck);
 }
