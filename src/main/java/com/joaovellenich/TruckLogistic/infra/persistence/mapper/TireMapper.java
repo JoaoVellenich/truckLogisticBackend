@@ -10,6 +10,7 @@ public class TireMapper {
                 .km(tire.getKm())
                 .position(tire.getPosition())
                 .belongsTo(tire.getBelongsTo())
+                .isActive(tire.isActive())
                 .build();
     }
 
@@ -19,6 +20,7 @@ public class TireMapper {
                 .km(tire.getKm())
                 .position(tire.getPosition())
                 .belongsTo(tire.getBelongsTo())
+                .isActive(tire.isActive())
                 .build();
     }
 }

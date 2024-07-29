@@ -21,4 +21,5 @@ public class TireEntity {
     private int position;
     @Column(nullable = false)
     private UUID belongsTo;
+    private boolean isActive;
 }

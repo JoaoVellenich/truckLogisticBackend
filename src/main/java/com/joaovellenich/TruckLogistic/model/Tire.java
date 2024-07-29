@@ -16,4 +16,5 @@ public class Tire {
     private double km;
     private int position;
     private UUID belongsTo;
+    private boolean isActive;
 }
