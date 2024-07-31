@@ -60,6 +60,7 @@ public class CreateFuelUseCase {
                     .price(request.price())
                     .liters(liters)
                     .location(request.location())
+                    .company(truckCompany)
                     .build();
             return this.fuelGateway.createFuel(fuelToSave);
         }else{

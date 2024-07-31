@@ -8,6 +8,7 @@ import com.joaovellenich.TruckLogistic.application.useCase.fuel.CreateFuelUseCas
 import com.joaovellenich.TruckLogistic.application.useCase.fuel.GetFuelPageUseCase;
 import com.joaovellenich.TruckLogistic.infra.controller.FuelController;
 import com.joaovellenich.TruckLogistic.infra.gateways.FuelRepositoryGateway;
+import com.joaovellenich.TruckLogistic.infra.persistence.mapper.CompanyMapper;
 import com.joaovellenich.TruckLogistic.infra.persistence.mapper.FuelMapper;
 import com.joaovellenich.TruckLogistic.infra.persistence.mapper.TruckMapper;
 import com.joaovellenich.TruckLogistic.infra.persistence.repositories.FuelRepository;
@@ -33,7 +34,7 @@ public class FuelConfig {
         return new FuelRepositoryGateway(fuelRepository, fuelMapper);
     }
     @Bean
-    public FuelMapper fuelMapper(TruckMapper truckMapper){
-        return new FuelMapper(truckMapper);
+    public FuelMapper fuelMapper(TruckMapper truckMapper, CompanyMapper companyMapper){
+        return new FuelMapper(truckMapper, companyMapper);
     }
 }
