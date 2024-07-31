@@ -22,4 +22,6 @@ public class TireEntity {
     @Column(nullable = false)
     private UUID belongsTo;
     private boolean isActive;
+    private String description;
+
 }

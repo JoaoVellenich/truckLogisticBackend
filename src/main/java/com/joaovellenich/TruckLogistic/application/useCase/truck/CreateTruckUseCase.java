@@ -48,6 +48,7 @@ public class CreateTruckUseCase {
                             .position(i+1)
                             .belongsTo(savedTruck.getId())
                             .isActive(true)
+                            .description("Novo pneu")
                             .build();
                     return this.tireGateway.saveTire(tire);
                 }).toList();

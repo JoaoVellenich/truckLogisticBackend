@@ -11,6 +11,7 @@ public class TireMapper {
                 .position(tire.getPosition())
                 .belongsTo(tire.getBelongsTo())
                 .isActive(tire.isActive())
+                .description(tire.getDescription())
                 .build();
     }
 
@@ -21,6 +22,7 @@ public class TireMapper {
                 .position(tire.getPosition())
                 .belongsTo(tire.getBelongsTo())
                 .isActive(tire.isActive())
+                .description(tire.getDescription())
                 .build();
     }
 }
