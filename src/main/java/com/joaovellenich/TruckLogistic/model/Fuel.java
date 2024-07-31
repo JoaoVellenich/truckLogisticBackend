@@ -24,5 +24,7 @@ public class Fuel {
     private Double price;
     private Double liters;
 
+    private Company company;
+
     private String location;
 }

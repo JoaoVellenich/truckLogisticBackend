@@ -28,4 +28,7 @@ public class FuelEntity {
     private Double liters;
 
     private String location;
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    private CompanyEntity company;
 }

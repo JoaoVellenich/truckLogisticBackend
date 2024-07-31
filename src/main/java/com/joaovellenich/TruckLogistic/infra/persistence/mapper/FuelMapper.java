@@ -5,9 +5,11 @@ import com.joaovellenich.TruckLogistic.model.Fuel;
 
 public class FuelMapper {
     private final TruckMapper truckMapper;
+    private final CompanyMapper companyMapper;
 
-    public FuelMapper(TruckMapper truckMapper) {
+    public FuelMapper(TruckMapper truckMapper, CompanyMapper companyMapper) {
         this.truckMapper = truckMapper;
+        this.companyMapper = companyMapper;
     }
 
     public Fuel toDomain(FuelEntity fuel){
@@ -22,6 +24,7 @@ public class FuelMapper {
                 .price(fuel.getPrice())
                 .liters(fuel.getLiters())
                 .location(fuel.getLocation())
+                .company(this.companyMapper.toDomain(fuel.getCompany()))
                 .build();
     }
 
@@ -37,6 +40,7 @@ public class FuelMapper {
                 .price(fuel.getPrice())
                 .liters(fuel.getLiters())
                 .location(fuel.getLocation())
+                .company(this.companyMapper.toEntity(fuel.getCompany()))
                 .build();
     }
 }
