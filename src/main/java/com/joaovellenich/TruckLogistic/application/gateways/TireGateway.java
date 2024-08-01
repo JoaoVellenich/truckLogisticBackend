@@ -7,5 +7,7 @@ import java.util.UUID;
 
 public interface TireGateway {
     Tire saveTire(Tire tire);
+    Tire updateTire(Tire tire);
+    Tire getById(UUID tireId);
     List<Tire> getTiresFromTruck(UUID truckId);
 }
